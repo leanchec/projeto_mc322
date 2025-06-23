@@ -1,78 +1,125 @@
 package src.grafo.java;
 
+import java.util.ArrayList;
+
 public class Campanha extends Vertice {
-    private int Itens;
-    private int Personagens;
-    private int Dungeons;
-    private int NPCs;
-    private int Regioes;
-    private int Baus;
-    private int Missoes;
+    private int QtdItens;
+    private int QtdPersonagens;
+    private int QtdDungeons;
+    private int QtdNPCs;
+    private int QtdRegioes;
+    private int QtdBaus;
+    private int QtdMissoes;
+    private ArrayList<Vertice> Itens;
+    private ArrayList<Vertice> Personagens;
+    private ArrayList<Vertice> Dungeons;
+    private ArrayList<Vertice> NPCs;
+    private ArrayList<Vertice> Regioes;
+    private ArrayList<Vertice> Baus;
+    private ArrayList<Vertice> Missoes;
+    
 
     public Campanha(String l_nome, String l_descricao, TipoVertice l_tipo) {
         super(l_nome, l_descricao, l_tipo);
-        this.Itens = 0;
-        this.Personagens = 0;
-        this.Dungeons = 0;
-        this.NPCs = 0;
-        this.Regioes = 0;
-        this.Baus = 0;
-        this.Missoes = 0;
+        this.QtdItens = 0;
+        this.QtdPersonagens = 0;
+        this.QtdDungeons = 0;
+        this.QtdNPCs = 0;
+        this.QtdRegioes = 0;
+        this.QtdBaus = 0;
+        this.QtdMissoes = 0;
+        this.Itens = new ArrayList<>();
+        this.Personagens = new ArrayList<>();
+        this.Dungeons = new ArrayList<>();
+        this.NPCs = new ArrayList<>();
+        this.Regioes = new ArrayList<>();
+        this.Baus = new ArrayList<>();
+        this.Missoes = new ArrayList<>();
     }
 
-    public int getItens() {
-        return this.Itens;
+    public int getQtdItens() {
+        return this.QtdItens;
     }
     
-    public int getPersonagens() {
+    public int getQtdPersonagens() {
+        return this.QtdPersonagens;
+    }
+
+    public int getQtdDungeons() {
+        return this.QtdDungeons;
+    }
+
+    public int getQtdNPCs() {
+        return this.QtdNPCs;
+    }
+
+    public int getQtdRegioes() {
+        return this.QtdRegioes;
+    }
+
+    public int getQtdBaus() {
+        return this.QtdBaus;
+    }
+
+    public int getQtdMissoes() {
+        return this.QtdMissoes;
+    }
+
+    public ArrayList<Vertice> getItens() {
+        return this.Itens;
+    }
+
+    public ArrayList<Vertice> getPersonagens() {
         return this.Personagens;
     }
 
-    public int getDungeons() {
+    public ArrayList<Vertice> getDungeons() {
         return this.Dungeons;
     }
 
-    public int getNPCs() {
+    public ArrayList<Vertice> getNPCs() {
         return this.NPCs;
     }
 
-    public int getRegioes() {
+    public ArrayList<Vertice> getRegioes() {
         return this.Regioes;
     }
 
-    public int getBaus() {
+    public ArrayList<Vertice> getBaus() {
         return this.Baus;
     }
 
-    public int getMissoes() {
+    public ArrayList<Vertice> getMissoes() {
         return this.Missoes;
     }
 
     public void setItens(int Itens) {
-        this.Itens = Itens;
+        this.QtdItens = Itens;
     }
     
     public void setPersonagens(int Personagens) {
-        this.Personagens = Personagens;
+        this.QtdPersonagens = Personagens;
     }
 
     public void setDungeons(int Dungeons) {
-        this.Dungeons = Dungeons;
+        this.QtdDungeons = Dungeons;
     }
 
     public void setNPCs(int NPCs) {
-        this.NPCs = NPCs;
+        this.QtdNPCs = NPCs;
     }
 
     public void setRegioes(int Regioes) {
-        this.Regioes = Regioes;
+        this.QtdRegioes = Regioes;
     }
 
     public void setBaus(int Baus) {
-        this.Baus = Baus;
+        this.QtdBaus = Baus;
     }
 
     public void setMissoes(int Missoes) {
-        this.Missoes = Missoes;
+        this.QtdMissoes = Missoes;
     }
+
+
 }
