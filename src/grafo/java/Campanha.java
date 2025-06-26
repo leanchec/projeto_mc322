@@ -93,31 +93,31 @@ public class Campanha extends Vertice {
         return this.Missoes;
     }
 
-    public void setItens(int Itens) {
+    public void setQtdItens(int Itens) {
         this.QtdItens = Itens;
     }
     
-    public void setPersonagens(int Personagens) {
+    public void setQtdPersonagens(int Personagens) {
         this.QtdPersonagens = Personagens;
     }
 
-    public void setDungeons(int Dungeons) {
+    public void setQtdDungeons(int Dungeons) {
         this.QtdDungeons = Dungeons;
     }
 
-    public void setNPCs(int NPCs) {
+    public void setQtdNPCs(int NPCs) {
         this.QtdNPCs = NPCs;
     }
 
-    public void setRegioes(int Regioes) {
+    public void setQtdRegioes(int Regioes) {
         this.QtdRegioes = Regioes;
     }
 
-    public void setBaus(int Baus) {
+    public void setQtdBaus(int Baus) {
         this.QtdBaus = Baus;
     }
 
-    public void setMissoes(int Missoes) {
+    public void setQtdMissoes(int Missoes) {
         this.QtdMissoes = Missoes;
     }
 
