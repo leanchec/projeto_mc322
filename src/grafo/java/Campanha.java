@@ -3,6 +3,7 @@ package src.grafo.java;
 import java.util.ArrayList;
 
 public class Campanha extends Vertice {
+    private int QtdVertices;
     private int QtdItens;
     private int QtdPersonagens;
     private int QtdDungeons;
@@ -10,6 +11,7 @@ public class Campanha extends Vertice {
     private int QtdRegioes;
     private int QtdBaus;
     private int QtdMissoes;
+    private ArrayList<Vertice> Vertices;
     private ArrayList<Vertice> Itens;
     private ArrayList<Vertice> Personagens;
     private ArrayList<Vertice> Dungeons;
@@ -17,10 +19,10 @@ public class Campanha extends Vertice {
     private ArrayList<Vertice> Regioes;
     private ArrayList<Vertice> Baus;
     private ArrayList<Vertice> Missoes;
-    
 
     public Campanha(String l_nome, String l_descricao, TipoVertice l_tipo) {
         super(l_nome, l_descricao, l_tipo);
+        this.QtdVertices = 0;
         this.QtdItens = 0;
         this.QtdPersonagens = 0;
         this.QtdDungeons = 0;
@@ -28,6 +30,7 @@ public class Campanha extends Vertice {
         this.QtdRegioes = 0;
         this.QtdBaus = 0;
         this.QtdMissoes = 0;
+        this.Vertices = new ArrayList<>();
         this.Itens = new ArrayList<>();
         this.Personagens = new ArrayList<>();
         this.Dungeons = new ArrayList<>();
@@ -35,6 +38,10 @@ public class Campanha extends Vertice {
         this.Regioes = new ArrayList<>();
         this.Baus = new ArrayList<>();
         this.Missoes = new ArrayList<>();
+    }
+
+    public int getQtdVertices() {
+        return this.QtdVertices;
     }
 
     public int getQtdItens() {
@@ -65,6 +72,10 @@ public class Campanha extends Vertice {
         return this.QtdMissoes;
     }
 
+    public ArrayList<Vertice> getVertices() {
+        return this.Vertices;
+    }
+
     public ArrayList<Vertice> getItens() {
         return this.Itens;
     }
@@ -93,33 +104,140 @@ public class Campanha extends Vertice {
         return this.Missoes;
     }
 
+    private void setQtdVertices(int Vertcies) {
+        this.QtdVertices = Vertcies;
+    }
+
     public void setQtdItens(int Itens) {
+        this.setQtdVertices(this.getQtdVertices() + (Itens - this.getQtdItens()));
         this.QtdItens = Itens;
     }
     
     public void setQtdPersonagens(int Personagens) {
+        this.setQtdVertices(this.getQtdVertices() + (Personagens - this.getQtdPersonagens()));
         this.QtdPersonagens = Personagens;
     }
 
     public void setQtdDungeons(int Dungeons) {
+        this.setQtdVertices(this.getQtdVertices() + (Dungeons - this.getQtdDungeons()));
         this.QtdDungeons = Dungeons;
     }
 
     public void setQtdNPCs(int NPCs) {
+        this.setQtdVertices(this.getQtdVertices() + (NPCs - this.getQtdNPCs()));
         this.QtdNPCs = NPCs;
     }
 
     public void setQtdRegioes(int Regioes) {
+        this.setQtdVertices(this.getQtdVertices() + (Regioes - this.getQtdRegioes()));
         this.QtdRegioes = Regioes;
     }
 
     public void setQtdBaus(int Baus) {
+        this.setQtdVertices(this.getQtdVertices() + (Baus - this.getQtdBaus()));
         this.QtdBaus = Baus;
     }
 
     public void setQtdMissoes(int Missoes) {
+        this.setQtdVertices(this.getQtdVertices() + (Missoes - this.getQtdMissoes()));
         this.QtdMissoes = Missoes;
     }
 
+    public void AdicionarVertice(Vertice novo, TipoVertice t_novo) {
+        this.Vertices.add(novo);
+        switch (t_novo) {
+            case TipoVertice.ITEM:
+                this.setQtdItens(this.getQtdItens() + 1);
+                this.Itens.add(novo);
+                break;
+            
+            case TipoVertice.PERSONAGEM:
+                this.setQtdPersonagens(this.getQtdPersonagens() + 1);
+                this.Personagens.add(novo);
+                break;
 
+            case TipoVertice.DUNGEON:
+                this.setQtdDungeons(this.getQtdDungeons() + 1);
+                this.Dungeons.add(novo);
+                break;
+            
+            case TipoVertice.NPC:
+                this.setQtdNPCs(this.getQtdNPCs() + 1);
+                this.NPCs.add(novo);
+                break;
+            
+            case TipoVertice.REGIAO:
+                this.setQtdRegioes(this.getQtdRegioes() + 1);
+                this.Regioes.add(novo);
+                break;
+
+            case TipoVertice.BAU:
+                this.setQtdBaus(this.getQtdBaus() + 1);
+                this.Baus.add(novo);
+                break;
+
+            case TipoVertice.MISSAO:
+                this.setQtdMissoes(this.getQtdMissoes() + 1);
+                this.Missoes.add(novo);
+                break;
+            
+            case TipoVertice.CAMPANHA:
+                //TODO erro nao da pra adicionar campanha em uma campanha
+                break;
+        }
+    }
+
+    public void AdiconarAresta(Vertice a, Vertice b) {
+        a.AdicionarVizinho(b);
+        b.AdicionarVizinho(a);
+    }
+
+    public void RemoverVertice(Vertice novo, TipoVertice t_novo) {
+        this.Vertices.remove(novo);
+        switch (t_novo) {
+            case TipoVertice.ITEM:
+                this.setQtdItens(this.getQtdItens() - 1);
+                this.Itens.remove(novo);
+                break;
+            
+            case TipoVertice.PERSONAGEM:
+                this.setQtdPersonagens(this.getQtdPersonagens() - 1);
+                this.Personagens.remove(novo);
+                break;
+
+            case TipoVertice.DUNGEON:
+                this.setQtdDungeons(this.getQtdDungeons() - 1);
+                this.Dungeons.remove(novo);
+                break;
+            
+            case TipoVertice.NPC:
+                this.setQtdNPCs(this.getQtdNPCs() - 1);
+                this.NPCs.remove(novo);
+                break;
+            
+            case TipoVertice.REGIAO:
+                this.setQtdRegioes(this.getQtdRegioes() - 1);
+                this.Regioes.remove(novo);
+                break;
+
+            case TipoVertice.BAU:
+                this.setQtdBaus(this.getQtdBaus() - 1);
+                this.Baus.remove(novo);
+                break;
+
+            case TipoVertice.MISSAO:
+                this.setQtdMissoes(this.getQtdMissoes() - 1);
+                this.Missoes.remove(novo);
+                break;
+            
+            case TipoVertice.CAMPANHA:
+                //TODO erro nao da pra remover campanha em uma campanha
+                break;
+        }
+    }
+
+    public void RemoverAresta(Vertice a, Vertice b) {
+        a.RemoverVizinho(b);
+        b.RemoverVizinho(a);
+    }
 }
