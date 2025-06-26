@@ -38,4 +38,8 @@ public abstract class Vertice {
     public void AdicionarVizinho(Vertice viz) {
         this.Vizinhos.add(viz);
     }
+
+    public void RemoverVizinho(Vertice viz) {
+        this.Vizinhos.remove(viz);
+    }
 }
