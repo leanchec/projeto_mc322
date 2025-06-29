@@ -166,6 +166,20 @@ public class Campanha implements Entidade{
         this.Caracteristica_Inteiros.remove(chave);
     }
 
+    public void Transferir(Entidade destino, TipoVertice t) {
+        for (Vertice v : this.getVertices()) {
+            if (v.getTipoVertice() == t) {
+                v.Mover(destino);
+            }
+        }
+    }
+
+    public void Transferir(Entidade destino) {
+        for(Vertice v : this.getVertices()) {
+            v.Mover(destino);
+        }
+    }
+
     private void setQtdVertices(int Vertcies) {
         this.QtdVertices = Vertcies;
     }

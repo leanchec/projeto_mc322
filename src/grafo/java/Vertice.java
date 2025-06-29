@@ -80,6 +80,30 @@ public abstract class Vertice implements Entidade {
         this.setLocalizacao(destino);
     }
 
+    public void Transferir(Entidade destino, TipoVertice t) {
+        ArrayList<Vertice> temp = new ArrayList<>();
+        for (Vertice v : this.getVizinhos()) {
+            if (v.getTipoVertice() == t) {
+                temp.add(v);
+            }
+        }
+        
+        for (Vertice v : temp) {
+            v.Mover(destino);
+        }
+    }
+
+    public void Transferir(Entidade destino) {
+        ArrayList<Vertice> temp = new ArrayList<>();
+        for (Vertice v : this.getVizinhos()) {
+            temp.add(v);
+        }
+
+        for (Vertice v : temp) {
+            v.Mover(destino);
+        }
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }

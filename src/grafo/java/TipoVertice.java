@@ -7,5 +7,5 @@ public enum TipoVertice {
     DUNGEON(),
     NPC(),
     MISSAO(),
-    BAU(),
+    BAU();
 }

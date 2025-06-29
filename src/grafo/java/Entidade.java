@@ -17,6 +17,8 @@ public interface Entidade {
     public void EditarCaracteristica_Inteiros(String chave, int valor, int limite);
     public void RemoverCaracteristica_String(String chave);
     public void RemoverCaracteristica_Inteiros(String chave);
+    public void Transferir(Entidade destino, TipoVertice t);
+    public void Transferir(Entidade destino);
 
     public TipoEntidade getTipoEntidade();
 }
