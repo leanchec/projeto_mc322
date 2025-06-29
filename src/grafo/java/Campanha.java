@@ -155,6 +155,11 @@ public class Campanha implements Entidade{
         this.setQtdTemplate(t_v, this.getQtdTemplate(t_v) - 1);
     }
 
+    public void RemoverVertice(Vertice v) {
+        this.Vertices.remove(v);
+        this.setQtdVertices(this.getQtdVertices() - 1);
+    }
+
     public void RemoverAresta(Vertice a, Vertice b) {
         a.RemoverVizinho(b);
         b.RemoverVizinho(a);
