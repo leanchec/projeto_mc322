@@ -1,8 +1,10 @@
-package com.campanha.rpg.types;
+package com.campanha.rpg.model;
 
 import java.util.HashMap;
 
-import com.campanha.rpg.model.Template;
+import com.campanha.rpg.types.Entidade;
+import com.campanha.rpg.types.Pair;
+import com.campanha.rpg.types.TipoEntidade;
 
 public abstract class EntidadeBase {
 

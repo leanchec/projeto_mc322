@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.campanha.rpg.types.Entidade;
 import com.campanha.rpg.types.Pair;
 import com.campanha.rpg.types.PairConverter;
 import com.campanha.rpg.types.TipoEntidade;
@@ -22,7 +21,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
-public class Campanha implements Entidade {
+public class Campanha extends EntidadeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = 0L; // Default value, constructor should not be called directly

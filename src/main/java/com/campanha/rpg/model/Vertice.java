@@ -20,7 +20,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "vertices")
-public class Vertice implements Entidade {
+public class Vertice extends EntidadeBase {
     @Id
     private final Long id = 1L; // Default value, constructor should not be called directly
 
