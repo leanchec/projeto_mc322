@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Vertice implements Entidade {
+    private Entidade localizacao;
+    private Campanha campanha;
     private String nome;
     private String descricao;
     public final TipoVertice tipo;
@@ -12,7 +14,9 @@ public abstract class Vertice implements Entidade {
     HashMap<String, Pair> Caracteristica_Inteiros;
     private final ArrayList<Vertice> Vizinhos;
 
-    public Vertice(String l_nome, String l_descricao, TipoVertice l_tipo) {
+    public Vertice(Entidade l_localizacao, Campanha l_campanha, String l_nome, String l_descricao, TipoVertice l_tipo) {
+        this.localizacao = l_localizacao;
+        this.campanha = l_campanha;
         this.nome = l_nome;
         this.descricao = l_descricao;
         this.tipo = l_tipo;
@@ -20,6 +24,14 @@ public abstract class Vertice implements Entidade {
         Caracteristica_String = new HashMap<>();
         Caracteristica_Inteiros = new HashMap<>();
         Vizinhos = new ArrayList<>();
+    }
+
+    public Entidade getLocalizacao() {
+        return this.localizacao;
+    }
+
+    public Campanha getCampanha() {
+        return this.campanha;
     }
 
     public String getNome() {
@@ -48,6 +60,24 @@ public abstract class Vertice implements Entidade {
 
     public ArrayList<Vertice> getVizinhos() {
         return this.Vizinhos;
+    }
+
+    public void setLocalizacao(Entidade localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    public void setCampanha(Campanha campanha) {
+        this.campanha = campanha;
+    }
+
+    public void Mover(Entidade destino) {
+        if (this.getLocalizacao().getTipoEntidade() == TipoEntidade.VERTICE){
+            this.getCampanha().RemoverAresta(this, (Vertice) this.getLocalizacao());
+        }
+        if (destino.getTipoEntidade() == TipoEntidade.VERTICE) {
+            this.getCampanha().AdiconarAresta(this, (Vertice) destino);
+        }
+        this.setLocalizacao(destino);
     }
 
     public void setNome(String nome) {
