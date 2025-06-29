@@ -26,22 +26,27 @@ public class Campanha implements Entidade{
         this.Vertices = new ArrayList<>();
     }
 
+    @Override
     public String getNome() {
         return this.nome;
     }
 
+    @Override
     public String getDescricao() {
         return this.descricao;
     }
 
+    @Override
     public TipoEntidade getTipoEntidade() {
         return this.tEntidade;
     }
 
+    @Override
     public HashMap<String, String> getCaracteristica_String() {
         return this.Caracteristica_String;
     }
 
+    @Override
     public HashMap<String, Pair> getCaracteristica_Inteiros() {
         return this.Caracteristica_Inteiros;
     }
@@ -62,39 +67,47 @@ public class Campanha implements Entidade{
         return this.Vertices;
     }
 
-
+    @Override
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    @Override
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
+    @Override
     public void AdicionarCaracteristica_String(String chave, String valor) {
         this.Caracteristica_String.put(chave, valor);
     }
 
+    @Override
     public void AdicionarCaracteristica_Inteiros(String chave, int valor, int limite) {
         this.Caracteristica_Inteiros.put(chave, new Pair(valor, limite));
     }
 
+    @Override
     public void EditarCaracteristica_String(String chave, String valor) {
         this.Caracteristica_String.replace(chave, valor);
     }
 
+    @Override
     public void EditarCaracteristica_Inteiros(String chave, int valor, int limite) {
         this.Caracteristica_Inteiros.replace(chave, new Pair(valor, limite));
     }
 
+    @Override
     public void RemoverCaracteristica_String(String chave) {
         this.Caracteristica_String.remove(chave);
     }
 
+    @Override
     public void RemoverCaracteristica_Inteiros(String chave) {
         this.Caracteristica_Inteiros.remove(chave);
     }
 
+    @Override
     public void Transferir(Entidade destino, Template t) {
         for (Vertice v : this.getVertices()) {
             if (v.getTemplate() == t) {
@@ -103,6 +116,7 @@ public class Campanha implements Entidade{
         }
     }
 
+    @Override
     public void Transferir(Entidade destino) {
         for(Vertice v : this.getVertices()) {
             v.Mover(destino);

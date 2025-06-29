@@ -46,14 +46,17 @@ public class Vertice implements Entidade {
         return this.campanha;
     }
 
+    @Override
     public String getNome() {
         return this.nome;
     }
 
+    @Override
     public String getDescricao() {
         return this.descricao;
     }
 
+    @Override
     public TipoEntidade getTipoEntidade() {
         return this.tipo;
     }
@@ -62,10 +65,12 @@ public class Vertice implements Entidade {
         return this.template;
     }
 
+    @Override
     public HashMap<String, String> getCaracteristica_String() {
         return this.getCaracteristica_String();
     }
 
+    @Override
     public HashMap<String, Pair> getCaracteristica_Inteiros() {
         return this.getCaracteristica_Inteiros();
     }
@@ -92,6 +97,7 @@ public class Vertice implements Entidade {
         this.setLocalizacao(destino);
     }
 
+    @Override
     public void Transferir(Entidade destino, Template t) {
         ArrayList<Vertice> temp = new ArrayList<>();
         for (Vertice v : this.getVizinhos()) {
@@ -105,8 +111,9 @@ public class Vertice implements Entidade {
         }
     }
 
+    @Override
     public void Transferir(Entidade destino) {
-        ArrayList<Vertice> temp = new ArrayList<>();
+        var temp = new ArrayList<Vertice>();
         for (Vertice v : this.getVizinhos()) {
             temp.add(v);
         }
@@ -116,34 +123,42 @@ public class Vertice implements Entidade {
         }
     }
 
+    @Override
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    @Override
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
+    @Override
     public void AdicionarCaracteristica_String(String chave, String valor) {
         this.Caracteristica_String.put(chave, valor);
     }
 
+    @Override
     public void AdicionarCaracteristica_Inteiros(String chave, int valor, int limite) {
         this.Caracteristica_Inteiros.put(chave, new Pair(valor, limite));
     }
 
+    @Override
     public void EditarCaracteristica_String(String chave, String valor) {
         this.Caracteristica_String.replace(chave, valor);
     }
 
+    @Override
     public void EditarCaracteristica_Inteiros(String chave, int valor, int limite) {
         this.Caracteristica_Inteiros.replace(chave, new Pair(valor, limite));
     }
 
+    @Override
     public void RemoverCaracteristica_String(String chave) {
         this.Caracteristica_String.remove(chave);
     }
 
+    @Override
     public void RemoverCaracteristica_Inteiros(String chave) {
         this.Caracteristica_Inteiros.remove(chave);
     }
