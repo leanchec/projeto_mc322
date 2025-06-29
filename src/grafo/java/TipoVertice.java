@@ -8,5 +8,4 @@ public enum TipoVertice {
     NPC(),
     MISSAO(),
     BAU(),
-    CAMPANHA();
 }

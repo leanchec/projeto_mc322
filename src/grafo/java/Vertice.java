@@ -2,20 +2,21 @@ package src.grafo.java;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-public abstract class Vertice {
+public abstract class Vertice implements Entidade {
     private String nome;
     private String descricao;
     public final TipoVertice tipo;
-    Map<String, String> Caracteristica_String;
-    Map<String, Pair> Caracteristica_Inteiros;
+    public final TipoEntidade tEntidade;
+    HashMap<String, String> Caracteristica_String;
+    HashMap<String, Pair> Caracteristica_Inteiros;
     private final ArrayList<Vertice> Vizinhos;
 
     public Vertice(String l_nome, String l_descricao, TipoVertice l_tipo) {
         this.nome = l_nome;
         this.descricao = l_descricao;
         this.tipo = l_tipo;
+        this.tEntidade = TipoEntidade.VERTICE;
         Caracteristica_String = new HashMap<>();
         Caracteristica_Inteiros = new HashMap<>();
         Vizinhos = new ArrayList<>();
@@ -27,6 +28,14 @@ public abstract class Vertice {
 
     public String getDescricao() {
         return this.descricao;
+    }
+
+    public TipoVertice getTipoVertice() {
+        return this.tipo;
+    }
+
+    public TipoEntidade getTipoEntidade() {
+        return this.tEntidade;
     }
 
     public HashMap<String, String> getCaracteristica_String() {
@@ -65,11 +74,11 @@ public abstract class Vertice {
         this.Caracteristica_Inteiros.replace(chave, new Pair(valor, limite));
     }
 
-    public void RemoverCaracteristica_String(String chave, String valor) {
+    public void RemoverCaracteristica_String(String chave) {
         this.Caracteristica_String.remove(chave);
     }
 
-    public void RemoverCaracteristica_Inteiros(String chave, int valor, int limite) {
+    public void RemoverCaracteristica_Inteiros(String chave) {
         this.Caracteristica_Inteiros.remove(chave);
     }
 
