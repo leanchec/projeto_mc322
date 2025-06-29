@@ -205,6 +205,16 @@ public class Campanha implements Entidade{
         this.QtdMissoes = Missoes;
     }
 
+    public Vertice Search(String nome) {
+        for (Vertice v : this.getVertices()) {
+            if (v.getNome() == nome) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    //TODO erro ja existe vertice com mesmo nome
     public void AdicionarVertice(Vertice novo, TipoVertice t_novo) {
         this.Vertices.add(novo);
         switch (t_novo) {
@@ -250,42 +260,43 @@ public class Campanha implements Entidade{
         b.AdicionarVizinho(a);
     }
 
-    public void RemoverVertice(Vertice novo, TipoVertice t_novo) {
-        this.Vertices.remove(novo);
-        switch (t_novo) {
+    //TODO erro nao existe esse vertice
+    public void RemoverVertice(Vertice v, TipoVertice t_v) {
+        this.Vertices.remove(v);
+        switch (t_v) {
             case TipoVertice.ITEM:
                 this.setQtdItens(this.getQtdItens() - 1);
-                this.Itens.remove(novo);
+                this.Itens.remove(v);
                 break;
             
             case TipoVertice.PERSONAGEM:
                 this.setQtdPersonagens(this.getQtdPersonagens() - 1);
-                this.Personagens.remove(novo);
+                this.Personagens.remove(v);
                 break;
 
             case TipoVertice.DUNGEON:
                 this.setQtdDungeons(this.getQtdDungeons() - 1);
-                this.Dungeons.remove(novo);
+                this.Dungeons.remove(v);
                 break;
             
             case TipoVertice.NPC:
                 this.setQtdNPCs(this.getQtdNPCs() - 1);
-                this.NPCs.remove(novo);
+                this.NPCs.remove(v);
                 break;
             
             case TipoVertice.REGIAO:
                 this.setQtdRegioes(this.getQtdRegioes() - 1);
-                this.Regioes.remove(novo);
+                this.Regioes.remove(v);
                 break;
 
             case TipoVertice.BAU:
                 this.setQtdBaus(this.getQtdBaus() - 1);
-                this.Baus.remove(novo);
+                this.Baus.remove(v);
                 break;
 
             case TipoVertice.MISSAO:
                 this.setQtdMissoes(this.getQtdMissoes() - 1);
-                this.Missoes.remove(novo);
+                this.Missoes.remove(v);
                 break;
         }
     }
