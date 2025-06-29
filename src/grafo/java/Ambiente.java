@@ -33,7 +33,7 @@ public class Ambiente {
     //TODO erro de nao ter campanha
     public Campanha Search(String nome) {
         for (Campanha c : this.getCampanhas()) {
-            if (c.getNome() ==  nome){
+            if (c.getNome().equals(nome)){
                 return c;
             }
         }

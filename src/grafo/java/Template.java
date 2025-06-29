@@ -5,8 +5,8 @@ import java.util.HashMap;
 public class Template {
     private final String nome;
     private String descricao;
-    private HashMap<String, String> Caracteristica_String;
-    private HashMap<String, Pair> Caracteristica_Inteiros;
+    private final HashMap<String, String> Caracteristica_String;
+    private final HashMap<String, Pair> Caracteristica_Inteiros;
 
     public Template(String l_nome, String l_descricao) {
         this.nome = l_nome;
@@ -31,13 +31,12 @@ public class Template {
     }
 
     public HashMap<String, String> getCaracteristica_String() {
-        return this.getCaracteristica_String();
+        return this.Caracteristica_String;
     }
 
     public HashMap<String, Pair> getCaracteristica_Inteiros() {
-        return this.getCaracteristica_Inteiros();
+        return this.Caracteristica_Inteiros;
     }
-
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;

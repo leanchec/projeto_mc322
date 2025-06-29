@@ -67,12 +67,12 @@ public class Vertice implements Entidade {
 
     @Override
     public HashMap<String, String> getCaracteristica_String() {
-        return this.getCaracteristica_String();
+        return this.Caracteristica_String;
     }
 
     @Override
     public HashMap<String, Pair> getCaracteristica_Inteiros() {
-        return this.getCaracteristica_Inteiros();
+        return this.Caracteristica_Inteiros;
     }
 
     public ArrayList<Vertice> getVizinhos() {

@@ -12,7 +12,7 @@ public class Campanha implements Entidade{
     HashMap<String, Integer> qtdTemplate;
     HashMap<String, ArrayList<Vertice>> VerticesTemplate;
     private int QtdVertices;
-    private ArrayList<Vertice> Vertices;
+    private final ArrayList<Vertice> Vertices;
 
     public Campanha(String l_nome, String l_descricao) {
         this.nome = l_nome;
@@ -133,7 +133,7 @@ public class Campanha implements Entidade{
 
     public Vertice Search(String nome) {
         for (Vertice v : this.getVertices()) {
-            if (v.getNome() == nome) {
+            if (v.getNome().equals(nome)) {
                 return v;
             }
         }
