@@ -9,22 +9,10 @@ public class Campanha implements Entidade{
     public final TipoEntidade tEntidade;
     HashMap<String, String> Caracteristica_String;
     HashMap<String, Pair> Caracteristica_Inteiros;
+    HashMap<String, Integer> qtdTemplate;
+    HashMap<String, ArrayList<Vertice>> VerticesTemplate;
     private int QtdVertices;
-    private int QtdItens;
-    private int QtdPersonagens;
-    private int QtdDungeons;
-    private int QtdNPCs;
-    private int QtdRegioes;
-    private int QtdBaus;
-    private int QtdMissoes;
     private ArrayList<Vertice> Vertices;
-    private ArrayList<Vertice> Itens;
-    private ArrayList<Vertice> Personagens;
-    private ArrayList<Vertice> Dungeons;
-    private ArrayList<Vertice> NPCs;
-    private ArrayList<Vertice> Regioes;
-    private ArrayList<Vertice> Baus;
-    private ArrayList<Vertice> Missoes;
 
     public Campanha(String l_nome, String l_descricao) {
         this.nome = l_nome;
@@ -32,22 +20,10 @@ public class Campanha implements Entidade{
         this.tEntidade = TipoEntidade.CAMPANHA;
         this.Caracteristica_String = new HashMap<>();
         this.Caracteristica_Inteiros = new HashMap<>();
+        this.qtdTemplate = new HashMap<>();
+        this.VerticesTemplate = new HashMap<>();
         this.QtdVertices = 0;
-        this.QtdItens = 0;
-        this.QtdPersonagens = 0;
-        this.QtdDungeons = 0;
-        this.QtdNPCs = 0;
-        this.QtdRegioes = 0;
-        this.QtdBaus = 0;
-        this.QtdMissoes = 0;
         this.Vertices = new ArrayList<>();
-        this.Itens = new ArrayList<>();
-        this.Personagens = new ArrayList<>();
-        this.Dungeons = new ArrayList<>();
-        this.NPCs = new ArrayList<>();
-        this.Regioes = new ArrayList<>();
-        this.Baus = new ArrayList<>();
-        this.Missoes = new ArrayList<>();
     }
 
     public String getNome() {
@@ -70,69 +46,22 @@ public class Campanha implements Entidade{
         return this.Caracteristica_Inteiros;
     }
 
+    public int getQtdTemplate(Template t) {
+        return this.qtdTemplate.get(t.getNome());
+    }
+
+    public ArrayList<Vertice> getVerticesTemplate(Template t) {
+        return this.VerticesTemplate.get(t.getNome());
+    }
+
     public int getQtdVertices() {
         return this.QtdVertices;
-    }
-
-    public int getQtdItens() {
-        return this.QtdItens;
-    }
-    
-    public int getQtdPersonagens() {
-        return this.QtdPersonagens;
-    }
-
-    public int getQtdDungeons() {
-        return this.QtdDungeons;
-    }
-
-    public int getQtdNPCs() {
-        return this.QtdNPCs;
-    }
-
-    public int getQtdRegioes() {
-        return this.QtdRegioes;
-    }
-
-    public int getQtdBaus() {
-        return this.QtdBaus;
-    }
-
-    public int getQtdMissoes() {
-        return this.QtdMissoes;
     }
 
     public ArrayList<Vertice> getVertices() {
         return this.Vertices;
     }
 
-    public ArrayList<Vertice> getItens() {
-        return this.Itens;
-    }
-
-    public ArrayList<Vertice> getPersonagens() {
-        return this.Personagens;
-    }
-
-    public ArrayList<Vertice> getDungeons() {
-        return this.Dungeons;
-    }
-
-    public ArrayList<Vertice> getNPCs() {
-        return this.NPCs;
-    }
-
-    public ArrayList<Vertice> getRegioes() {
-        return this.Regioes;
-    }
-
-    public ArrayList<Vertice> getBaus() {
-        return this.Baus;
-    }
-
-    public ArrayList<Vertice> getMissoes() {
-        return this.Missoes;
-    }
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -166,9 +95,9 @@ public class Campanha implements Entidade{
         this.Caracteristica_Inteiros.remove(chave);
     }
 
-    public void Transferir(Entidade destino, TipoVertice t) {
+    public void Transferir(Entidade destino, Template t) {
         for (Vertice v : this.getVertices()) {
-            if (v.getTipoVertice() == t) {
+            if (v.getTemplate() == t) {
                 v.Mover(destino);
             }
         }
@@ -180,43 +109,12 @@ public class Campanha implements Entidade{
         }
     }
 
+    public void setQtdTemplate(Template t, int qtdTemplate) {
+        this.qtdTemplate.replace(t.getNome(), qtdTemplate);
+    }
+
     private void setQtdVertices(int Vertcies) {
         this.QtdVertices = Vertcies;
-    }
-
-    public void setQtdItens(int Itens) {
-        this.setQtdVertices(this.getQtdVertices() + (Itens - this.getQtdItens()));
-        this.QtdItens = Itens;
-    }
-    
-    public void setQtdPersonagens(int Personagens) {
-        this.setQtdVertices(this.getQtdVertices() + (Personagens - this.getQtdPersonagens()));
-        this.QtdPersonagens = Personagens;
-    }
-
-    public void setQtdDungeons(int Dungeons) {
-        this.setQtdVertices(this.getQtdVertices() + (Dungeons - this.getQtdDungeons()));
-        this.QtdDungeons = Dungeons;
-    }
-
-    public void setQtdNPCs(int NPCs) {
-        this.setQtdVertices(this.getQtdVertices() + (NPCs - this.getQtdNPCs()));
-        this.QtdNPCs = NPCs;
-    }
-
-    public void setQtdRegioes(int Regioes) {
-        this.setQtdVertices(this.getQtdVertices() + (Regioes - this.getQtdRegioes()));
-        this.QtdRegioes = Regioes;
-    }
-
-    public void setQtdBaus(int Baus) {
-        this.setQtdVertices(this.getQtdVertices() + (Baus - this.getQtdBaus()));
-        this.QtdBaus = Baus;
-    }
-
-    public void setQtdMissoes(int Missoes) {
-        this.setQtdVertices(this.getQtdVertices() + (Missoes - this.getQtdMissoes()));
-        this.QtdMissoes = Missoes;
     }
 
     public Vertice Search(String nome) {
@@ -229,44 +127,19 @@ public class Campanha implements Entidade{
     }
 
     //TODO erro ja existe vertice com mesmo nome
-    public void AdicionarVertice(Vertice novo, TipoVertice t_novo) {
+    public void AdicionarVertice(Vertice novo, Template t_novo) {
         this.Vertices.add(novo);
-        switch (t_novo) {
-            case TipoVertice.ITEM:
-                this.setQtdItens(this.getQtdItens() + 1);
-                this.Itens.add(novo);
-                break;
-            
-            case TipoVertice.PERSONAGEM:
-                this.setQtdPersonagens(this.getQtdPersonagens() + 1);
-                this.Personagens.add(novo);
-                break;
-
-            case TipoVertice.DUNGEON:
-                this.setQtdDungeons(this.getQtdDungeons() + 1);
-                this.Dungeons.add(novo);
-                break;
-            
-            case TipoVertice.NPC:
-                this.setQtdNPCs(this.getQtdNPCs() + 1);
-                this.NPCs.add(novo);
-                break;
-            
-            case TipoVertice.REGIAO:
-                this.setQtdRegioes(this.getQtdRegioes() + 1);
-                this.Regioes.add(novo);
-                break;
-
-            case TipoVertice.BAU:
-                this.setQtdBaus(this.getQtdBaus() + 1);
-                this.Baus.add(novo);
-                break;
-
-            case TipoVertice.MISSAO:
-                this.setQtdMissoes(this.getQtdMissoes() + 1);
-                this.Missoes.add(novo);
-                break;
+        this.setQtdVertices(this.getQtdVertices() + 1);
+        if (!this.VerticesTemplate.containsKey(t_novo.getNome())){
+            this.VerticesTemplate.put(t_novo.getNome(), new ArrayList<>());
         }
+        this.VerticesTemplate.get(t_novo.getNome()).add(novo);
+        this.setQtdTemplate(t_novo, this.getQtdTemplate(t_novo) + 1);
+    }
+
+    public void AdicionarVertice(Vertice novo) {
+        this.Vertices.add(novo);
+        this.setQtdVertices(this.getQtdVertices() + 1);
     }
 
     public void AdiconarAresta(Vertice a, Vertice b) {
@@ -275,44 +148,11 @@ public class Campanha implements Entidade{
     }
 
     //TODO erro nao existe esse vertice
-    public void RemoverVertice(Vertice v, TipoVertice t_v) {
+    public void RemoverVertice(Vertice v, Template t_v) {
         this.Vertices.remove(v);
-        switch (t_v) {
-            case TipoVertice.ITEM:
-                this.setQtdItens(this.getQtdItens() - 1);
-                this.Itens.remove(v);
-                break;
-            
-            case TipoVertice.PERSONAGEM:
-                this.setQtdPersonagens(this.getQtdPersonagens() - 1);
-                this.Personagens.remove(v);
-                break;
-
-            case TipoVertice.DUNGEON:
-                this.setQtdDungeons(this.getQtdDungeons() - 1);
-                this.Dungeons.remove(v);
-                break;
-            
-            case TipoVertice.NPC:
-                this.setQtdNPCs(this.getQtdNPCs() - 1);
-                this.NPCs.remove(v);
-                break;
-            
-            case TipoVertice.REGIAO:
-                this.setQtdRegioes(this.getQtdRegioes() - 1);
-                this.Regioes.remove(v);
-                break;
-
-            case TipoVertice.BAU:
-                this.setQtdBaus(this.getQtdBaus() - 1);
-                this.Baus.remove(v);
-                break;
-
-            case TipoVertice.MISSAO:
-                this.setQtdMissoes(this.getQtdMissoes() - 1);
-                this.Missoes.remove(v);
-                break;
-        }
+        this.setQtdVertices(this.getQtdVertices() - 1);
+        this.VerticesTemplate.get(t_v.getNome()).remove(v);
+        this.setQtdTemplate(t_v, this.getQtdTemplate(t_v) - 1);
     }
 
     public void RemoverAresta(Vertice a, Vertice b) {

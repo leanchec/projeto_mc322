@@ -3,26 +3,38 @@ package src.grafo.java;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Vertice implements Entidade {
+public class Vertice implements Entidade {
     private Entidade localizacao;
     private Campanha campanha;
     private String nome;
     private String descricao;
-    public final TipoVertice tipo;
-    public final TipoEntidade tEntidade;
-    HashMap<String, String> Caracteristica_String;
-    HashMap<String, Pair> Caracteristica_Inteiros;
+    private final TipoEntidade tipo;
+    private final Template template;
+    private final HashMap<String, String> Caracteristica_String;
+    private final HashMap<String, Pair> Caracteristica_Inteiros;
     private final ArrayList<Vertice> Vizinhos;
 
-    public Vertice(Entidade l_localizacao, Campanha l_campanha, String l_nome, String l_descricao, TipoVertice l_tipo) {
+    public Vertice(Entidade l_localizacao, Campanha l_campanha, String l_nome, String l_descricao) {
         this.localizacao = l_localizacao;
         this.campanha = l_campanha;
         this.nome = l_nome;
         this.descricao = l_descricao;
-        this.tipo = l_tipo;
-        this.tEntidade = TipoEntidade.VERTICE;
+        this.tipo = TipoEntidade.VERTICE;
+        this.template = null;
         Caracteristica_String = new HashMap<>();
         Caracteristica_Inteiros = new HashMap<>();
+        Vizinhos = new ArrayList<>();
+    }
+
+    public Vertice(Entidade l_localizacao, Campanha l_campanha, String l_nome, String l_descricao, Template l_template) {
+        this.localizacao = l_localizacao;
+        this.campanha = l_campanha;
+        this.nome = l_nome;
+        this.descricao = l_descricao;
+        this.tipo = TipoEntidade.VERTICE;
+        this.template = l_template;
+        Caracteristica_String = new HashMap<>(l_template.getCaracteristica_String());
+        Caracteristica_Inteiros = new HashMap<>(l_template.getCaracteristica_Inteiros());
         Vizinhos = new ArrayList<>();
     }
 
@@ -42,12 +54,12 @@ public abstract class Vertice implements Entidade {
         return this.descricao;
     }
 
-    public TipoVertice getTipoVertice() {
+    public TipoEntidade getTipoEntidade() {
         return this.tipo;
     }
 
-    public TipoEntidade getTipoEntidade() {
-        return this.tEntidade;
+    public Template getTemplate() {
+        return this.template;
     }
 
     public HashMap<String, String> getCaracteristica_String() {
@@ -80,14 +92,14 @@ public abstract class Vertice implements Entidade {
         this.setLocalizacao(destino);
     }
 
-    public void Transferir(Entidade destino, TipoVertice t) {
+    public void Transferir(Entidade destino, Template t) {
         ArrayList<Vertice> temp = new ArrayList<>();
         for (Vertice v : this.getVizinhos()) {
-            if (v.getTipoVertice() == t) {
+            if (v.getTemplate() == t) {
                 temp.add(v);
             }
         }
-        
+
         for (Vertice v : temp) {
             v.Mover(destino);
         }
