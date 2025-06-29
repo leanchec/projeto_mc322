@@ -26,7 +26,7 @@ public class Campanha implements Entidade{
     private ArrayList<Vertice> Baus;
     private ArrayList<Vertice> Missoes;
 
-    public Campanha(String l_nome, String l_descricao, TipoVertice l_tipo) {
+    public Campanha(String l_nome, String l_descricao) {
         this.nome = l_nome;
         this.descricao = l_descricao;
         this.tEntidade = TipoEntidade.CAMPANHA;

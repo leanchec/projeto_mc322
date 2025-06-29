@@ -20,7 +20,7 @@ public class Ambiente {
     }
 
     public void criar_campanha(String nome, String descricao) {
-        final Campanha c = new Campanha(nome, descricao, TipoVertice.CAMPANHA);
+        final Campanha c = new Campanha(nome, descricao);
         this.setTamanho(this.getTamanho()+1);
         this.Campanhas.add(c);
     }
@@ -37,6 +37,7 @@ public class Ambiente {
                 return c;
             }
         }
+        return null;
     }
 
     //TODO erro id nao existente
