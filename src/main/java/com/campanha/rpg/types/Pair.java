@@ -1,4 +1,4 @@
-package src.grafo.java;
+package com.campanha.rpg.types;
 
 public class Pair {
     private int first;

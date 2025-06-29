@@ -1,0 +1,16 @@
+services:
+  db-rpg:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - ./data/:/var/lib/postgresql/data 
+    ports:
+      - 5432:5432
+ 
+  adminer-rpg:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

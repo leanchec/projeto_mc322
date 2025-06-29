@@ -1,9 +1,11 @@
-package src.grafo.java;
+package com.campanha.rpg.types;
 
 import java.util.HashMap;
 
+import com.campanha.rpg.model.Template;
+
 public interface Entidade {
-    
+
     public String getNome();
     public String getDescricao();
     public HashMap<String, String> getCaracteristica_String();

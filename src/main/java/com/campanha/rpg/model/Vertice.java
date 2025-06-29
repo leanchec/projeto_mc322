@@ -1,18 +1,52 @@
-package src.grafo.java;
+package com.campanha.rpg.model;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import com.campanha.rpg.types.Entidade;
+import com.campanha.rpg.types.Pair;
+import com.campanha.rpg.types.TipoEntidade;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "vertices")
 public class Vertice implements Entidade {
+    @Id
+    private final Long id = 1L; // Default value, constructor should not be called directly
+
     private Entidade localizacao;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "campanha_id")
     private Campanha campanha;
     private String nome;
     private String descricao;
+    
     private final TipoEntidade tipo;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "template_id")
     private final Template template;
-    private final HashMap<String, String> Caracteristica_String;
-    private final HashMap<String, Pair> Caracteristica_Inteiros;
-    private final ArrayList<Vertice> Vizinhos;
+
+    private final HashMap<String, String> Caracteristica_String = new HashMap<>();
+    private final HashMap<String, Pair> Caracteristica_Inteiros = new HashMap<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "vizinhos",
+        joinColumns = @JoinColumn(name = "vertice_id"),
+        inverseJoinColumns = @JoinColumn(name = "vizinho_id")
+    )
+    private final List<Vertice> Vizinhos = new ArrayList<>();
 
     public Vertice(Entidade l_localizacao, Campanha l_campanha, String l_nome, String l_descricao) {
         this.localizacao = l_localizacao;
@@ -21,9 +55,6 @@ public class Vertice implements Entidade {
         this.descricao = l_descricao;
         this.tipo = TipoEntidade.VERTICE;
         this.template = null;
-        Caracteristica_String = new HashMap<>();
-        Caracteristica_Inteiros = new HashMap<>();
-        Vizinhos = new ArrayList<>();
     }
 
     public Vertice(Entidade l_localizacao, Campanha l_campanha, String l_nome, String l_descricao, Template l_template) {
@@ -33,9 +64,10 @@ public class Vertice implements Entidade {
         this.descricao = l_descricao;
         this.tipo = TipoEntidade.VERTICE;
         this.template = l_template;
-        Caracteristica_String = new HashMap<>(l_template.getCaracteristica_String());
-        Caracteristica_Inteiros = new HashMap<>(l_template.getCaracteristica_Inteiros());
-        Vizinhos = new ArrayList<>();
+    }
+
+    public Long getId() {
+        return this.id;
     }
 
     public Entidade getLocalizacao() {
@@ -43,7 +75,7 @@ public class Vertice implements Entidade {
     }
 
     public Campanha getCampanha() {
-        return this.campanha;
+        return campanha;
     }
 
     @Override
@@ -62,7 +94,7 @@ public class Vertice implements Entidade {
     }
 
     public Template getTemplate() {
-        return this.template;
+        return template;
     }
 
     @Override
@@ -75,8 +107,8 @@ public class Vertice implements Entidade {
         return this.Caracteristica_Inteiros;
     }
 
-    public ArrayList<Vertice> getVizinhos() {
-        return this.Vizinhos;
+    public List<Vertice> getVizinhos() {
+        return Vizinhos;
     }
 
     public void setLocalizacao(Entidade localizacao) {
@@ -97,6 +129,7 @@ public class Vertice implements Entidade {
         this.setLocalizacao(destino);
     }
 
+    @Transient
     @Override
     public void Transferir(Entidade destino, Template t) {
         ArrayList<Vertice> temp = new ArrayList<>();
@@ -111,6 +144,7 @@ public class Vertice implements Entidade {
         }
     }
 
+    @Transient
     @Override
     public void Transferir(Entidade destino) {
         var temp = new ArrayList<Vertice>();
@@ -170,4 +204,5 @@ public class Vertice implements Entidade {
     public void RemoverVizinho(Vertice viz) {
         this.Vizinhos.remove(viz);
     }
+
 }
