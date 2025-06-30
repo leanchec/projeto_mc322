@@ -8,3 +8,4 @@
 - Vizualizar grafo com vértices mostrando o nome deles ao lado
 - Possibilida de mover os vértices e de fixá-los
 - Capacidade de escolher modo claro ou escuro
+- Possibilidade de assoiações many-to-many
