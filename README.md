@@ -38,6 +38,7 @@ Esse repositório é apenas o backend com interface em RESTApi, o frontend para 
 	<li>Instale as bibliotecas usando <code>mvn install</code></li>
 	<li>-Opcional- Execute docker-compose com <code>sudo docker-compose up -d</code></li>
 	<li>Configure o arquivo <code>src/main/resources/application.properties</code> para seu banco de dados</li>
+	<li>Configure o arquivo <code>src/main/java/com/campanha/rpg/RpgApplication.java</code> com a url onde o frontend está hospedada</li>
     <li>Copile o projeto com <code>mvn package</code></li>
 	<li>Execute o projeto com <code>java -jar target/rpg-0.0.1-SNAPSHOT.jar</code></li>
 	<li>Utilize a interface que desejar para se comunicar com a API</li>
