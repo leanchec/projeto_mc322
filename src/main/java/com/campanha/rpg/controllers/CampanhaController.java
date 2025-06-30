@@ -76,7 +76,7 @@ public class CampanhaController {
             return campanha.get().getVertices();
         }
 
-        return new ArrayList();
+        return new ArrayList<>();
     }
 
     @GetMapping("/campanhas/{id}/templates")
@@ -89,7 +89,7 @@ public class CampanhaController {
             return temp;
         }
 
-        return new ArrayList();
+        return new ArrayList<>();
     }
 
     @PutMapping("/campanhas/{id}")
