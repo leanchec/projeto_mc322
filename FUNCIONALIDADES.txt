@@ -1,11 +1,11 @@
 - Selecionar uma Campanha
 - Criar um template com características bases
-- Adicionar um vértice com nome, descrição, características de um tamplate e específicas
+- Adicionar um vértice com nome, descrição, características de um template e específicas
 - Editar ou remover o vértice
 - Vértices possuem cor baseado no template usado para criá-lo
 - Tabela de qual cor representa qual template
 - Criar e remover aresta
 - Vizualizar grafo com vértices mostrando o nome deles ao lado
-- Possibilida de mover os vértices e de fixá-los
+- Possibilidade de mover os vértices e de fixá-los
 - Capacidade de escolher modo claro ou escuro
 - Possibilidade de assoiações many-to-many
