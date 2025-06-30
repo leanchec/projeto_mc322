@@ -25,9 +25,9 @@ public class PairConverter implements AttributeConverter<Pair, String> {
             throw new IllegalArgumentException("Invalid format for Pair: " + dbData);
         }
         
-        int valor = Integer.parseInt(parts[0]);
-        int limite = Integer.parseInt(parts[1]);
+        int first = Integer.parseInt(parts[0]);
+        int second = Integer.parseInt(parts[1]);
         
-        return new Pair(valor, limite);
+        return new Pair(first, second);
     }
 }
