@@ -1,12 +1,39 @@
 package com.campanha.rpg.types;
 
-public class Pair {
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+
+public class Pair implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int first;
     private int second;
 
-    public Pair(int l_first, int l_second) {
-        this.first = l_first;
-        this.second = l_second;
+    public Pair() {
+        this.first = 0;
+        this.second = 0;
+    }
+
+    public Pair(int first, int second) {
+        this.first = first;
+        this.second = second;
+    }
+
+    public Pair(int[] values) {
+        if (values == null || values.length != 2) {
+            throw new IllegalArgumentException("Array must contain exactly two elements.");
+        }
+        this.first = values[0];
+        this.second = values[1];
+    }
+
+    @JsonCreator
+    public static Pair fromJson(int[] values) {
+        if (values == null || values.length != 2) {
+            throw new IllegalArgumentException("Array must contain exactly two elements");
+        }
+        return new Pair(values[0], values[1]);
     }
 
     public int getFirst() {

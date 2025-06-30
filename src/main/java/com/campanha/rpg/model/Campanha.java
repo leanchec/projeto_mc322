@@ -1,22 +1,15 @@
 package com.campanha.rpg.model;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import com.campanha.rpg.types.Pair;
-import com.campanha.rpg.types.PairConverter;
+import com.campanha.rpg.types.Entidade;
 import com.campanha.rpg.types.TipoEntidade;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
@@ -26,33 +19,20 @@ public class Campanha extends EntidadeBase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = 0L; // Default value, constructor should not be called directly
 
-    private String nome;
-
-    private String descricao;
-        
     @Transient
     public final TipoEntidade tEntidade = TipoEntidade.CAMPANHA;
     
-    @ElementCollection
-    @CollectionTable(name = "campanha_caracteristicas_string", 
-                    joinColumns = @JoinColumn(name = "campanha_id"))
-    @MapKeyColumn(name = "chave")
-    @Column(name = "valor")
-    HashMap<String, String> Caracteristica_String = new HashMap<>();
-
-    @ElementCollection
-    @CollectionTable(name = "campanha_caracteristicas_inteiros", 
-                    joinColumns = @JoinColumn(name = "campanha_id"))
-    @MapKeyColumn(name = "chave")
-    @Column(name = "valor")
-    @Convert(converter = PairConverter.class)
-    HashMap<String, Pair> Caracteristica_Inteiros = new HashMap<>();
-    
     @OneToMany(mappedBy = "campanha", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
-    private final ArrayList<Vertice> vertices = new ArrayList<>();
+    @JsonManagedReference("campanha-vertices")
+    public List<Vertice> vertices = new ArrayList<>();
 
-    @OneToMany(mappedBy= "campanha", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
-    private final ArrayList<Template> templates = new ArrayList<>();
+    @OneToMany(mappedBy = "campanha", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("campanha-templates")
+    public List<Template> templates = new ArrayList<>();
+
+    protected Campanha() {
+        // Default constructor for JPA
+    }
 
     public Campanha(String l_nome, String l_descricao) {
         this.nome = l_nome;
@@ -79,17 +59,10 @@ public class Campanha extends EntidadeBase {
         return this.tEntidade;
     }
 
-    @Override
-    public HashMap<String, String> getCaracteristica_String() {
-        return this.Caracteristica_String;
-    }
-
-    @Override
-    public HashMap<String, Pair> getCaracteristica_Inteiros() {
-        return this.Caracteristica_Inteiros;
-    }
-
-    public ArrayList<Template> getTemplates() {
+    public List<Template> getTemplates() {
+        for(Template t : templates) {
+            System.out.println(t.getId() + " - Template: " + t.getNome() + " - " + t.getDescricao());
+        }
         return templates;
     }
 
@@ -101,16 +74,16 @@ public class Campanha extends EntidadeBase {
         return templates.size();
     }
 
+    public List<Vertice> getVertices() {
+        return vertices;
+    }
+
     public List<Vertice> getVerticesTemplate(Template t) {
         return t.getVertices();
     }
 
     public int getQtdVertices() {
         return vertices.size();
-    }
-
-    public ArrayList<Vertice> getVertices() {
-        return vertices;
     }
 
     @Override
@@ -121,36 +94,6 @@ public class Campanha extends EntidadeBase {
     @Override
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    @Override
-    public void AdicionarCaracteristica_String(String chave, String valor) {
-        this.Caracteristica_String.put(chave, valor);
-    }
-
-    @Override
-    public void AdicionarCaracteristica_Inteiros(String chave, int valor, int limite) {
-        this.Caracteristica_Inteiros.put(chave, new Pair(valor, limite));
-    }
-
-    @Override
-    public void EditarCaracteristica_String(String chave, String valor) {
-        this.Caracteristica_String.replace(chave, valor);
-    }
-
-    @Override
-    public void EditarCaracteristica_Inteiros(String chave, int valor, int limite) {
-        this.Caracteristica_Inteiros.replace(chave, new Pair(valor, limite));
-    }
-
-    @Override
-    public void RemoverCaracteristica_String(String chave) {
-        this.Caracteristica_String.remove(chave);
-    }
-
-    @Override
-    public void RemoverCaracteristica_Inteiros(String chave) {
-        this.Caracteristica_Inteiros.remove(chave);
     }
 
     @Override

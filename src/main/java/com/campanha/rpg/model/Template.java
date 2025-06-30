@@ -1,11 +1,19 @@
 package com.campanha.rpg.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import com.campanha.rpg.types.Pair;
+import org.springframework.lang.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,31 +22,52 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "templates")
+@Table(
+    name = "templates",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"nome"})
+)
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Template {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private final Long id = 1L;
+    private Long id;
 
-    private final String nome;
+    private String nome;
     private String descricao;
-    private final HashMap<String, String> Caracteristica_String = new HashMap<>();
-    private final HashMap<String, Pair> Caracteristica_Inteiros = new HashMap<>();
+    
+    @ElementCollection
+    @CollectionTable(
+        name = "template_caracteristicas_string",
+        joinColumns = @JoinColumn(name = "template_id")
+    )
+    @Column(name = "caracteristica")
+    private List<String> caracteristicasString = new ArrayList<>();
 
-    @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
+    @ElementCollection
+    @CollectionTable(
+        name = "template_caracteristicas_inteiros",
+        joinColumns = @JoinColumn(name = "template_id")
+    )
+    @Column(name = "caracteristica")
+    private List<String> caracteristicasInteiros = new ArrayList<>();
+
+    @ManyToOne(fetch = jakarta.persistence.FetchType.EAGER)
     @JoinColumn(name = "campanha_id")
-    private final Campanha campanha;
+    @NonNull
+    @JsonBackReference("campanha-vertices")
+    private Campanha campanha;
 
-    @OneToMany(mappedBy = "template", fetch = jakarta.persistence.FetchType.LAZY)
-    private final List<Vertice> vertices = new ArrayList<>();
+    @OneToMany(mappedBy = "template", fetch = jakarta.persistence.FetchType.EAGER)
+    private List<Vertice> vertices = new ArrayList<>();
 
-    public Template(String l_nome, String l_descricao) {
-        this.nome = l_nome;
-        this.descricao = l_descricao;
-        this.campanha = null; // Default value, constructor should not be called directly
-    }
+    // Empty constructor for JPA
+    protected Template() {}
 
     public Template(Template t) {
         this.nome = t.nome;
@@ -46,6 +75,13 @@ public class Template {
         this.campanha = t.campanha;
     }
 
+    public Template(Campanha campanha, String descricao, String nome) {
+        this.campanha = campanha;
+        this.descricao = descricao;
+        this.nome = nome;
+    }
+
+    @JsonIgnore
     public List<Vertice> getVertices() {
         return vertices;
     }
@@ -61,40 +97,52 @@ public class Template {
     public String getDescricao() {
         return this.descricao;
     }
-
-    public HashMap<String, String> getCaracteristica_String() {
-        return this.Caracteristica_String;
+    
+    public Campanha getCampanha() {
+        return campanha;
     }
 
-    public HashMap<String, Pair> getCaracteristica_Inteiros() {
-        return this.Caracteristica_Inteiros;
+    public Long getCampanhaId() {
+        return campanha.getId();
+    }
+
+    public List<String> getCaracteristicasString() {
+        return this.caracteristicasString;
+    }
+
+    public List<String> getCaracteristicasInteiros() {
+        return this.caracteristicasInteiros;
+    }
+
+    public void setCaracteristicasInteiros(List<String> caracteristicas) {
+        this.caracteristicasInteiros.addAll(caracteristicas);
+    }
+
+    public void setCaracteristicasString(List<String> caracteristicas) {
+        this.caracteristicasString.addAll(caracteristicas);
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
-    public void AdicionarCaracteristica_String(String chave, String valor) {
-        this.Caracteristica_String.put(chave, valor);
+    public void adicionarCaracteristicaString(String valor) {
+        this.caracteristicasString.add(valor);
     }
 
-    public void AdicionarCaracteristica_Inteiros(String chave, int valor, int limite) {
-        this.Caracteristica_Inteiros.put(chave, new Pair(valor, limite));
+    public void adicionarCaracteristicaInteiros(String caracteristica) {
+        this.caracteristicasInteiros.add(caracteristica);
     }
 
-    public void EditarCaracteristica_String(String chave, String valor) {
-        this.Caracteristica_String.replace(chave, valor);
+    public void removerCaracteristicaString(String chave) {
+        this.caracteristicasString.remove(chave);
     }
 
-    public void EditarCaracteristica_Inteiros(String chave, int valor, int limite) {
-        this.Caracteristica_Inteiros.replace(chave, new Pair(valor, limite));
+    public void removerCaracteristicaInteiros(String chave) {
+        this.caracteristicasInteiros.remove(chave);
     }
 
-    public void RemoverCaracteristica_String(String chave) {
-        this.Caracteristica_String.remove(chave);
-    }
-
-    public void RemoverCaracteristica_Inteiros(String chave) {
-        this.Caracteristica_Inteiros.remove(chave);
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
