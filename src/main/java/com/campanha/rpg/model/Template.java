@@ -48,6 +48,7 @@ public class Template {
     )
     @Column(name = "caracteristica")
     private List<String> caracteristicasString = new ArrayList<>();
+    // Not a real warning as it can't be final as a part of a JPA entity
 
     @ElementCollection
     @CollectionTable(
@@ -56,6 +57,7 @@ public class Template {
     )
     @Column(name = "caracteristica")
     private List<String> caracteristicasInteiros = new ArrayList<>();
+    // Not a real warning as it can't be final as a part of a JPA entity
 
     @ManyToOne(fetch = jakarta.persistence.FetchType.EAGER)
     @JoinColumn(name = "campanha_id")
@@ -67,7 +69,11 @@ public class Template {
     private List<Vertice> vertices = new ArrayList<>();
 
     // Empty constructor for JPA
-    protected Template() {}
+    protected Template() {
+        this.nome = "";
+        this.descricao = "";
+        this.campanha = new Campanha();
+    }
 
     public Template(Template t) {
         this.nome = t.nome;
@@ -115,11 +121,11 @@ public class Template {
     }
 
     public void setCaracteristicasInteiros(List<String> caracteristicas) {
-        this.caracteristicasInteiros.addAll(caracteristicas);
+        this.caracteristicasInteiros = caracteristicas;
     }
 
     public void setCaracteristicasString(List<String> caracteristicas) {
-        this.caracteristicasString.addAll(caracteristicas);
+        this.caracteristicasString = caracteristicas;
     }
 
     public void setDescricao(String descricao) {
@@ -144,5 +150,13 @@ public class Template {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public void setVertices(List<Vertice> vertices) {
+        this.vertices = vertices;
+    }
+
+    public void setCampanha(Campanha campanha) {
+        this.campanha = campanha;
     }
 }

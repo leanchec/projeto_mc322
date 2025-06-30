@@ -28,12 +28,12 @@ public class TemplateController {
    }
 
     @GetMapping("/templates")
-    List<Template> all() {
+    public List<Template> all() {
         return (List<Template>) repository.findAll();
     }
 
     @PostMapping("/templates")
-    Template newTemplate(@RequestBody TemplateDTO newTemplate) {
+    public Template newTemplate(@RequestBody TemplateDTO newTemplate) {
         Campanha campanha = campanhaRepository.findById(newTemplate.campanhaId)
             .orElseThrow(() -> new RuntimeException("Campanha not found with id: " + newTemplate.campanhaId));
 
@@ -47,14 +47,14 @@ public class TemplateController {
     // Single item
 
     @GetMapping("/templates/{id}")
-    Template one(@PathVariable Long id) {
+    public Template one(@PathVariable Long id) {
 
         return repository.findById(id)
         .orElseThrow(() -> new Error("Template not found with id: " + id));
     }
 
     @PutMapping("/templates/{id}")
-    Template replaceTemplate(@RequestBody Template newTemplate, @PathVariable Long id) {
+    public Template replaceTemplate(@RequestBody Template newTemplate, @PathVariable Long id) {
 
         return repository.findById(id)
         .map(template -> {
@@ -68,7 +68,7 @@ public class TemplateController {
     }
 
     @DeleteMapping("/templates/{id}")
-    void deleteTemplate(@PathVariable Long id) {
+    public void deleteTemplate(@PathVariable Long id) {
         repository.deleteById(id);
     }
 }

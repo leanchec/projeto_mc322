@@ -68,7 +68,7 @@ public class Vertice extends EntidadeBase {
     })
     private Map<String, Pair> caracteristicasInteger;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = jakarta.persistence.CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = jakarta.persistence.CascadeType.DETACH)
     @JoinTable(
         name = "vizinhos",
         joinColumns = @JoinColumn(name = "vertice_id"),
@@ -134,6 +134,10 @@ public class Vertice extends EntidadeBase {
     }
 
     public List<Long> getVizinhos() {
+        if (this.Vizinhos == null) {
+            return new ArrayList<>();
+        }
+
         return this.Vizinhos.stream()
             .map(Vertice::getId)
             .toList();
@@ -217,6 +221,14 @@ public class Vertice extends EntidadeBase {
 
     public void RemoverVizinho(Vertice viz) {
         this.Vizinhos.remove(viz);
+    }
+
+    public void clearVizinhos() {
+        for (Vertice viz : new ArrayList<>(this.Vizinhos)) {
+            viz.RemoverVizinho(this);
+        }
+
+        this.Vizinhos.clear();
     }
 
 }

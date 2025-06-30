@@ -1,6 +1,8 @@
 package com.campanha.rpg.controllers;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,12 +35,12 @@ public class VerticeController {
    }
 
     @GetMapping("/vertices")
-    List<Vertice> all() {
+    public List<Vertice> all() {
         return (List<Vertice>) repository.findAll();
     }
 
     @PostMapping("/vertices")
-    Vertice newVertice(@RequestBody VerticeDTO verticeDTO) {
+    public Vertice newVertice(@RequestBody VerticeDTO verticeDTO) {
         Campanha campanha = campanhaRepository.findById(verticeDTO.campanhaId)
             .orElseThrow(() -> new RuntimeException("Campanha not found with id: " + verticeDTO.campanhaId));
 
@@ -85,28 +87,45 @@ public class VerticeController {
     // Single item
 
     @GetMapping("/vertices/{id}")
-    Vertice one(@PathVariable Long id) {
+    public Vertice one(@PathVariable Long id) {
 
         return repository.findById(id)
         .orElseThrow(() -> new Error("Vertice not found with id: " + id));
     }
 
     @PutMapping("/vertices/{id}")
-    Vertice replaceVertice(@RequestBody Vertice newVertice, @PathVariable Long id) {
+    public Vertice replaceVertice(@RequestBody VerticeDTO verticeDTO, @PathVariable Long id) {
 
-        return repository.findById(id)
-        .map(template -> {
-            template.setNome(newVertice.getNome());
-            template.setDescricao(newVertice.getDescricao());
-            return repository.save(template);
-        })
-        .orElseGet(() -> {
-            return repository.save(newVertice);
-        });
+        Vertice existingVertice = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Vertice not found with id: " + id));
+
+
+        for (String caracteristica : verticeDTO.caracteristicasInteiros.keySet()) {
+            existingVertice.EditarCaracteristicaInteiros(caracteristica, verticeDTO.caracteristicasInteiros.get(caracteristica).getFirst(), verticeDTO.caracteristicasInteiros.get(caracteristica).getSecond());
+        }
+
+        for (String caracteristica : verticeDTO.caracteristicasString.keySet()) {
+            existingVertice.EditarCaracteristicaString(caracteristica, verticeDTO.caracteristicasString.get(caracteristica));
+        }
+
+        Set<Long> existingVizinhosIds = new HashSet<>(existingVertice.getVizinhos());
+        Set<Long> newVizinhosIds = new HashSet<>(verticeDTO.vizinhos);
+
+        if (!existingVizinhosIds.equals(newVizinhosIds)) {
+            existingVertice.clearVizinhos();
+            for (Long vizinhoId : verticeDTO.vizinhos) {
+                Vertice vizinho = repository.findById(vizinhoId)
+                    .orElseThrow(() -> new RuntimeException("Vertice vizinho not found with id: " + vizinhoId));
+                existingVertice.AdicionarVizinho(vizinho);
+                vizinho.AdicionarVizinho(existingVertice);
+            }
+        }
+
+        return repository.save(existingVertice);
     }
 
     @DeleteMapping("/vertices/{id}")
-    void deleteVertice(@PathVariable Long id) {
+    public void deleteVertice(@PathVariable Long id) {
         repository.deleteById(id);
     }
 }

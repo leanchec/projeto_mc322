@@ -50,26 +50,26 @@ public class CampanhaController {
    
 
     @GetMapping("/campanhas")
-    List<Campanha> all() {
+    public List<Campanha> all() {
         return (List<Campanha>) repository.findAll();
     }
 
     @PostMapping("/campanhas")
-    Campanha newCampanha(@RequestBody Campanha newCampanha) {
+    public Campanha newCampanha(@RequestBody Campanha newCampanha) {
         return repository.save(newCampanha);
     }
 
     // Single item
 
     @GetMapping("/campanhas/{id}")
-    Campanha one(@PathVariable Long id) {
+    public Campanha one(@PathVariable Long id) {
 
         return repository.findById(id)
         .orElseThrow(() -> new Error("Campanha not found with id: " + id));
     }
 
     @GetMapping("/campanhas/{id}/vertices")
-    List<Vertice> getVerticesInCampanha(@PathVariable Long id) {
+    public List<Vertice> getVerticesInCampanha(@PathVariable Long id) {
         Optional<Campanha> campanha = repository.findById(id);
 
         if (campanha.isPresent()) {
@@ -80,7 +80,7 @@ public class CampanhaController {
     }
 
     @GetMapping("/campanhas/{id}/templates")
-    List<Template> getTemplatesInCampanha(@PathVariable Long id) {
+    public List<Template> getTemplatesInCampanha(@PathVariable Long id) {
         Optional<Campanha> campanha = repository.findById(id);
 
         if (campanha.isPresent()) {
@@ -93,7 +93,7 @@ public class CampanhaController {
     }
 
     @PutMapping("/campanhas/{id}")
-    Campanha replaceCampanha(@RequestBody Campanha newCampanha, @PathVariable Long id) {
+    public Campanha replaceCampanha(@RequestBody Campanha newCampanha, @PathVariable Long id) {
 
         return repository.findById(id)
         .map(Campanha -> {
@@ -107,7 +107,7 @@ public class CampanhaController {
     }
 
     @DeleteMapping("/campanhas/{id}")
-    void deleteCampanha(@PathVariable Long id) {
+    public void deleteCampanha(@PathVariable Long id) {
         repository.deleteById(id);
     }
 }
