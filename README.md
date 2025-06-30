@@ -29,13 +29,14 @@ Para utilizar o sistema você precisa das bibliotecas:
 	<li><a href="https://jdbc.postgresql.org/">PostgreSQL JDBC Driver</a></li>
 </ul>
 
-Esse repositório é apenas o backend com interface em RESTApi, o frontend para o mesmo está hospedado em: 
+Esse repositório é apenas o backend com interface em RESTApi, o frontend para o mesmo está hospedado [neste repo](https://github.com/gvinfinity/graph-react).
 
 ## Tutorial de instalação
 
 <ol>
 	<li>Baixe/clone o repositório</li>
 	<li>Instale as bibliotecas usando <code>mvn install</code></li>
+	<li>-Opcional- Execute docker-compose com <code>sudo docker-compose up -d</code></li>
 	<li>Configure o arquivo <code>src/main/resources/application.properties</code> para seu banco de dados</li>
     <li>Copile o projeto com <code>mvn package</code></li>
 	<li>Execute o projeto com <code>java -jar target/rpg-0.0.1-SNAPSHOT.jar</code></li>
